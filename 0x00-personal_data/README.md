@@ -25,13 +25,13 @@
 
 Write a function called filter_datum that returns the log message obfuscated:
 
-    * Arguments:
-        * fields: a list of strings representing all fields to obfuscate
-        * redaction: a string representing by what the field will be obfuscated
-        * message: a string representing the log line
-        * separator: a string representing by which character is separating all fields in the log line (message)
-    * The function should use a regex to replace occurrences of certain field values.
-    * filter_datum should be less than 5 lines long and use re.sub to perform the substitution with a single regex
+* Arguments:
+    * fields: a list of strings representing all fields to obfuscate
+    * redaction: a string representing by what the field will be obfuscated
+    * message: a string representing the log line
+    * separator: a string representing by which character is separating all fields in the log line (message)
+* The function should use a regex to replace occurrences of certain field values.
+* filter_datum should be less than 5 lines long and use re.sub to perform the substitution with a single regex
 
 ```powershell
 bob@dylan:~$ cat main.py
@@ -54,7 +54,7 @@ name=egg;email=eggmin@eggsample.com;password=xxx;date_of_birth=xxx;
 name=bob;email=bob@dylan.com;password=xxx;date_of_birth=xxx;
 bob@dylan:~$
 ```
-* [filtered_logger.py](./filtered_logger.py)
+* File: [filtered_logger.py](./filtered_logger.py)
 
 # 1. Log formatter
 
@@ -106,7 +106,7 @@ bob@dylan:~$ ./main.py
 [HOLBERTON] my_logger INFO 2019-11-19 18:24:25,105: name=Bob; email=***; ssn=***; password=***;
 bob@dylan:~$
 ```
-* [filtered_logger.py](./filtered_logger.py)
+* File: [filtered_logger.py](./filtered_logger.py)
 
 # 2. Create logger
 mandatory
@@ -144,7 +144,7 @@ bob@dylan:~$ ./main.py
 PII_FIELDS: 5
 bob@dylan:~$
 ```
-* [filtered_logger.py](./filtered_logger.py)
+* File:[filtered_logger.py](./filtered_logger.py)
 
 # 3. Connect to secure database
 mandatory
@@ -205,7 +205,7 @@ bob@dylan:~$ PERSONAL_DATA_DB_USERNAME=root PERSONAL_DATA_DB_PASSWORD=root PERSO
 2
 bob@dylan:~$
 ```
-* [filtered_logger.py](./filtered_logger.py)
+* File:[filtered_logger.py](./filtered_logger.py)
 
 # 4. Read and filter data
 mandatory
@@ -263,7 +263,7 @@ bob@dylan:~$ PERSONAL_DATA_DB_USERNAME=root PERSONAL_DATA_DB_PASSWORD=root PERSO
 [HOLBERTON] user_data INFO 2019-11-19 18:37:59,621: name=***; email=***; phone=***; ssn=***; password=***; ip=f724:c5d1:a14d:c4c5:bae2:9457:3769:1969; last_login=2019-11-14 06:16:19; user_agent=Mozilla/5.0 (Linux; U; Android 4.1.2; de-de; GT-I9100 Build/JZO54K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30;
 bob@dylan:~$
 ```
-* [filtered_logger.py](./filtered_logger.py)
+* File:[filtered_logger.py](./filtered_logger.py)
 
 # 5. Encrypting passwords
 mandatory
@@ -292,7 +292,7 @@ b'$2b$12$Fnjf6ew.oPZtVksngJjh1.vYCnxRjPm2yt18kw6AuprMRpmhJVxJO'
 b'$2b$12$xSAw.bxfSTAlIBglPMXeL.SJnzme3Gm0E7eOEKOVV2OhqOakyUN5m'
 bob@dylan:~$
 ```
-* [encrypt_password.py](./encrypt_password.py)
+* File:[encrypt_password.py](./encrypt_password.py)
 
 # 6. Check valid password
 mandatory
@@ -325,4 +325,4 @@ b'$2b$12$Fnjf6ew.oPZtVksngJjh1.vYCnxRjPm2yt18kw6AuprMRpmhJVxJO'
 True
 bob@dylan:~$
 ```
-* [encrypt_password.py](./encrypt_password.py)
+* File:[encrypt_password.py](./encrypt_password.py)
