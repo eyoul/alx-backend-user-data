@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """API authentication.
 """
+import re
 from flask import request
 from typing import List, TypeVar
 
@@ -9,22 +10,19 @@ class Auth:
     """Returns Autentication for now.
     """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
+        """Checks if a path requires authentication.
         """
-        Returns True if the path is not in the list of excluded_paths.
-        """
-        if path is None:
-            return True
-
-        if excluded_paths is None or len(excluded_paths) == 0:
-            return True
-
-        for excluded_path in excluded_paths:
-            if path == excluded_path:
-                return False
-            if excluded_path.endswith('/') and path.startswith(excluded_path
-                                                               [:-1]):
-                return False
-
+        if path is not None and excluded_paths is not None:
+            for exclusion_path in map(lambda x: x.strip(), excluded_paths):
+                pattern = ''
+                if exclusion_path[-1] == '*':
+                    pattern = '{}.*'.format(exclusion_path[0:-1])
+                elif exclusion_path[-1] == '/':
+                    pattern = '{}/*'.format(exclusion_path[0:-1])
+                else:
+                    pattern = '{}/*'.format(exclusion_path)
+                if re.match(pattern, path):
+                    return False
         return True
 
     def authorization_header(self, request=None) -> str:
