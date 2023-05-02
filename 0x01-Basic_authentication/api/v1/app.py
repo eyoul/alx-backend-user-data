@@ -13,7 +13,7 @@ from api.v1.auth.auth import Auth
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
-auth_type = getenv('AUTH_TYPE')
+auth_type = getenv('AUTH_TYPE', 'auth')
 auth = None
 if auth_type == 'basic_auth':
     auth = BasicAuth()
@@ -35,15 +35,10 @@ def before_request() -> str:
     ]
     if auth.require_auth(request.path, excluded_paths):
         auth_header = auth.authorization_header(request)
+        user = auth.current_user(request)
         if auth_header is None:
             abort(401)
-        if not auth_header.startswith('Bearer '):
-            abort(401)
-        token = auth_header.split(' ')[1]
-        if token != 'Test':
-            abort(403)
-        current_user = auth.current_user(request)
-        if current_user is None:
+        if user is None:
             abort(403)
 
 
