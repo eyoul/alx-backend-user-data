@@ -22,6 +22,8 @@ else:
     auth = None
 # if auth_type == 'basic_auth':
 #     auth = BasicAuth()
+
+
 @app.before_request
 def before_request():
     if auth is None:
@@ -57,8 +59,6 @@ def forbidden(error) -> str:
     """ Forbidden handler
     """
     return jsonify({"error": "Forbidden"}), 403
-
-
 
 
 if __name__ == "__main__":
