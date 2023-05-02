@@ -19,8 +19,10 @@ if auth_type == 'auth':
     auth = Auth()
 
 
-@app.before_request()
+@app.before_request
 def before_request() -> str:
+    """Before request huandler
+    """
     if auth is None:
         return
 
