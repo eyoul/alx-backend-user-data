@@ -22,6 +22,20 @@ else:
     auth = None
 # if auth_type == 'basic_auth':
 #     auth = BasicAuth()
+@app.before_request
+def before_request():
+    if auth is None:
+        return
+
+    exclude_paths = ['/api/v1/status/', '/api/v1/unauthorized/',
+                     '/api/v1/forbidden/']
+    if auth.require_auth(request.path, exclude_paths):
+        auth_header = auth.authorization_header(request)
+        if auth_header is None:
+            abort(401)
+        current_user = auth.current_user(request)
+        if current_user is None:
+            abort(403)
 
 
 @app.errorhandler(404)
@@ -45,20 +59,6 @@ def forbidden(error) -> str:
     return jsonify({"error": "Forbidden"}), 403
 
 
-@app.before_request
-def before_request():
-    if auth is None:
-        return
-
-    exclude_paths = ['/api/v1/status/', '/api/v1/unauthorized/',
-                     '/api/v1/forbidden/']
-    if auth.require_auth(request.path, excluded_paths):
-        auth_header = auth.authorization_header(request)
-        if auth_header is None:
-            abort(401)
-        current_user = auth.current_user(request)
-        if current_user is None:
-            abort(403)
 
 
 if __name__ == "__main__":
