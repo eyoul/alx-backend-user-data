@@ -21,7 +21,7 @@ else:
 
 
 @app.before_request
-def before_request():
+def authentication():
     if auth is None:
         return
 
