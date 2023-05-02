@@ -63,7 +63,7 @@ In the industry, you should not implement your own Basic authentication system a
 # Tasks
 0. Simple-basic-API
 
-Download and start your project from this archive.zip
+Download and start your project from this [archive.zip](https://intranet.alxswe.com/rltoken/2o4gAozNufil_KjoxKI5bA)
 
 In this archive, you will find a simple API with one model: User. Storage of these users is done via a serialization/deserialization in files.
 
@@ -163,7 +163,7 @@ Edit api/v1/app.py:
 For testing this new error handler, add a new endpoint in api/v1/views/index.py:
 
 * Route: GET /api/v1/forbidden
-* This endpoint must raise a 403 error by using abort - Custom Error Pages
+* This endpoint must raise a 403 error by using abort - [Custom Error Pages](https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/)
 By calling abort(403), the error handler for 403 will be executed.
 
 In the first terminal:
