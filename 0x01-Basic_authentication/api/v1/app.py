@@ -21,21 +21,22 @@ else:
 
 
 @app.before_request
-def authentication():
+def before_request() -> str:
+    """ Before request handler
+    """
     if auth is None:
         return
-
-    excluded_paths = [
-        '/api/v1/status/',
-        '/api/v1/unauthorized/',
-        '/api/v1/forbidden/'
-    ]
-    if auth.require_auth(request.path, excluded_paths):
-        auth_header = auth.authorization_header(request)
-        if auth_header is None:
+    if auth.require_auth(
+            path=request.path,
+            exclude_paths=[
+                '/api/v1/status/',
+                '/api/v1/unauthorized/',
+                '/api/v1/forbidden/',
+            ],
+    ):
+        if auth.authorization_header(request) is None:
             abort(401)
-        current_user = auth.current_user(request)
-        if current_user is None:
+        if auth.current_user(request) is None:
             abort(403)
 
 
