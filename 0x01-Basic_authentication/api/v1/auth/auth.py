@@ -9,9 +9,22 @@ class Auth:
     """Returns Autentication for now.
     """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """Returns False for now.
         """
-        return False
+        Returns True if the path is not in the list of excluded_paths.
+        """
+        if path is None:
+            return True
+
+        if excluded_paths is None or len(excluded_paths) == 0:
+            return True
+
+        for excluded_path in excluded_paths:
+            if path == excluded_path:
+                return False
+            if excluded_path.endswith('/') and path.startswith(excluded_path):
+                return False
+
+        return True
 
     def authorization_header(self, request=None) -> str:
         """
