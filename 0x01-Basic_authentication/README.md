@@ -656,3 +656,7 @@ Example for excluded_paths = ["/api/v1/stat*"]:
 * /api/v1/users will return True
 * /api/v1/status will return False
 * /api/v1/stats will return False
+
+### Authors &copy;
+
+- Eyoul Shimeles

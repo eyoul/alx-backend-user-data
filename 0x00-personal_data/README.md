@@ -326,3 +326,7 @@ True
 bob@dylan:~$
 ```
 * File: [encrypt_password.py](./encrypt_password.py)
+
+### Authors &copy;
+
+- Eyoul Shimeles
