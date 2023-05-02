@@ -38,6 +38,11 @@ def before_request() -> str:
         auth_header = auth.authorization_header(request)
         if auth_header is None:
             abort(401)
+        if not auth_header.startswith('Bearer '):
+            abort(401)
+        token = auth_header.split('')[1]
+        if token != 'Test':
+            abort(403)
         current_user = auth.current_user(request)
         if current_user is None:
             abort(403)
