@@ -40,6 +40,8 @@ def before_request() -> str:
         if not auth_header.startswith('Bearer '):
             abort(401)
         token = auth_header.split(' ')[1]
+        if token != 'Test':
+            abort(403)
         current_user = auth.current_user(request)
         if not auth.authenticate_token(token):
             abort(403)
