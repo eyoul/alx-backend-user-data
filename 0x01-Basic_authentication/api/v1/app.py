@@ -18,8 +18,6 @@ auth = None
 if auth_type == 'auth':
     from api.v1.auth.auth import Auth
     auth = Auth()
-# else:
-#     auth = None
 
 
 @app.before_request
