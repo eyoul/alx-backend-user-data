@@ -3,7 +3,7 @@
 """
 from api.v1.views import app_views
 from flask import abort, jsonify, request
-from models.user import User
+from models.user import storage, User
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
@@ -120,3 +120,22 @@ def update_user(user_id: str = None) -> str:
         user.last_name = rj.get('last_name')
     user.save()
     return jsonify(user.to_json()), 200
+
+
+@app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
+def get_user(user_id):
+    """
+    Retrieves a User object
+    """
+    if user_id == "me" and request.current_user is None:
+        abort(404)
+
+    user = storage.get(User, user_id)
+
+    if user is None:
+        abort(404)
+
+    if user_id == "me" and request.current_user is not None:
+        return jsonify(request.current_user.to_dict())
+
+    return jsonify(user.to_dict())
