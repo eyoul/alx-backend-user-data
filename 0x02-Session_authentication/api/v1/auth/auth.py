@@ -50,7 +50,6 @@ class Auth:
     def __init__(self):
 
         self.session_auth = SessionAuth()
-        from .auth import SessionAuth
         self.session_name = os.environ.get("SESSION_NAME", "_my_session_id")
   
     def session_cookie(self, request=None):
