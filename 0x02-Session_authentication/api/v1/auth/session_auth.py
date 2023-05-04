@@ -4,6 +4,7 @@
 import os
 import uuid
 from models.user import User
+from flask import request
 from typing import Tuple, TypeVar
 from .auth import Auth
 
