@@ -23,7 +23,7 @@ if auth_type == 'basic_auth':
 if auth_type == 'session_auth':
     auth = SessionAuth()
 
-session['my_key'] = 'my_value'
+
 @app.before_request
 def before_request() -> str:
     """Before request handler
