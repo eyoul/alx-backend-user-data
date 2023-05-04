@@ -8,7 +8,7 @@ from models.user import User
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def auth_session():
+def login() -> str:
     """
     Handle user login
     Return:
@@ -32,6 +32,7 @@ def auth_session():
     session_name = os.getenv('SESSION_NAME')
     resp.set_cookie(session_name, session_id)
     return resp
+
 
 @app_views.route('/auth_session/logout',
                  methods=['DELETE'],
