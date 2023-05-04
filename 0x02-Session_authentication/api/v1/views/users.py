@@ -3,7 +3,7 @@
 """
 from api.v1.views import app_views
 from flask import abort, jsonify, request
-from models.user import storage, User
+from models.user import User
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
@@ -127,15 +127,12 @@ def get_user(user_id):
     """
     Retrieves a User object
     """
-    if user_id == "me" and request.current_user is None:
-        abort(404)
-
-    user = storage.get(User, user_id)
-
-    if user is None:
-        abort(404)
-
-    if user_id == "me" and request.current_user is not None:
+    if user_id == 'me':
+        if not request.current_user:
+            abort(404)
         return jsonify(request.current_user.to_dict())
 
+    user = User.query.get(user_id)
+    if not user:
+        abort(404)
     return jsonify(user.to_dict())
