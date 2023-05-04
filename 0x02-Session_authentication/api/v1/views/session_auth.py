@@ -8,7 +8,7 @@ from api.v1.views import app_views
 from models.user import User
 
 
-@app_views.route('/auth_session/login', methods=['POST', 'OPTIONS'], strict_slashes=False)
+@app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def auth_session_login():
     """POST /api/v1/auth_session/login
     """
@@ -32,4 +32,4 @@ def auth_session_login():
     cookie_name = getenv('SESSION_NAME')
     response = jsonify(user.to_json())
     response.set_cookie(cookie_name, session_id)
-    return response, 200
+    return response
