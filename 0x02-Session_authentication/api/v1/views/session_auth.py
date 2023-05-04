@@ -9,7 +9,7 @@ from api.v1.app import auth
 
 
 @app_views.route('/auth_session/login/', methods=['POST'], strict_slashes=False)
-def create_session() -> str:
+def login() -> str:
     """Create a new session for a user"""
     email = request.form.get('email')
     password = request.form.get('password')
