@@ -15,7 +15,6 @@ from api.v1.app import auth
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-@app_views.route('/auth_session/login/', methods=['POST'], strict_slashes=False)
 def auth_session_login() -> str:
     """Authenticates a user using session authentication"""
     email = request.form.get('email')
@@ -29,8 +28,8 @@ def auth_session_login() -> str:
         return jsonify({'error': 'no user found for this email'}), 404
     if not user.is_valid_password(password):
         return jsonify({'error': 'wrong password'}), 401
+    cookie_name = getenv('SESSION_NAME')
     session_id = auth.create_session(user.id)
-    user_dict = user.to_json()
-    response = jsonify(user_dict)
-    response.set_cookie(os.getenv('SESSION_NAME'), session_id)
+    response = jsonify(user.to_json())
+    response.set_cookie(cookie_name, session_id)
     return response
