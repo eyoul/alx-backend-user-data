@@ -35,13 +35,14 @@ def before_request() -> str:
     ]
     if auth.require_auth(request.path, excluded_paths):
         auth_header = auth.authorization_header(request)
-        request.current_user = auth.current_user(request)
-        user = request.current_user
+        user = auth.current_user(request)
         if auth_header is None:
             abort(401)
         if user is None:
             abort(403)
+    # Assign result of auth.current_user(request) to request.current_user
 
+    request.current_user = user
 
 @app.errorhandler(404)
 def not_found(error) -> str:
