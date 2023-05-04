@@ -8,7 +8,6 @@ from models.user import User
 from api.v1.app import auth
 
 
-@app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 @app_views.route('/auth_session/login/', methods=['POST'], strict_slashes=False)
 def create_session() -> str:
     """Create a new session for a user"""
