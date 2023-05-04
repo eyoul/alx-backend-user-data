@@ -10,13 +10,19 @@ from .auth import Auth
 class SessionAuth(Auth):
     """Creating a class attribute
     """
-    user_id_by_session_id = {}
+    def __init__(self):
+        self.user_id_by_session_id = {}
 
-    def create_session(self, user_id: str = None) -> str:
-        """Creating an instance method
+    def create_session(self, user_id: str) -> str:
+        """Creating an session instance method
         """
-        if user_id is None or not isinstance(user_id, str):
-            return None
         session_id = str(uuid.uuid4())
-        self.__class__.user_id_by_session_id[session_id] = user_id
+        self.user_id_by_session_id[session_id] = user_id
         return session_id
+
+    def user_id_for_session_id(self, session_id: str = None) -> str:
+        """Creating an user_id_for_session_id method
+        """
+        if session_id is None or not isinstance(session_id, str):
+            return None
+        return self.user_id_by_session_id.get(session_id)
