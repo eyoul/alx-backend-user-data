@@ -4,7 +4,7 @@ Route module for the API
 """
 from os import getenv
 from api.v1.views import app_views
-from flask import Flask, jsonify, abort, request
+from flask import Flask, jsonify, abort, request, session
 from flask_cors import (CORS, cross_origin)
 import os
 from api.v1.auth.basic_auth import BasicAuth
@@ -23,7 +23,7 @@ if auth_type == 'basic_auth':
 if auth_type == 'session_auth':
     auth = SessionAuth()
 
-
+session['my_key'] = 'my_value'
 @app.before_request
 def before_request() -> str:
     """Before request handler
