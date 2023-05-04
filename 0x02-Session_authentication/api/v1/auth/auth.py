@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """API authentication.
 """
+import os
 import re
 from flask import request
 from typing import List, TypeVar
+from .auth import SessionAuth
 
 
 class Auth:
@@ -44,3 +46,14 @@ class Auth:
         Returns None for now.
         """
         return None
+
+
+    def __init__(self):
+
+        self.session_auth = SessionAuth()
+        self.session_name = os.environ.get("SESSION_NAME", "_my_session_id")
+  
+    def session_cookie(self, request=None):
+        if request is None:
+            return None
+        return request.cookies.get(self.session_name, None)
