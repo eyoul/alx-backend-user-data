@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Module of session authenticating views
+"""
 import os
 from api.v1.views import app_views
 from api.v1.app import auth
