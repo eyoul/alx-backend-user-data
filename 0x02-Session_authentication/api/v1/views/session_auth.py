@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """ Module of Session auth views
 """
+import os
 from api.v1.views import app_views
 from api.v1.app import auth
+from typing import Tuple
 from flask import abort, jsonify, request
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def login_session():
+def login() -> Tuple[str, int]:
     """Handle session-based authentication login
     """
     email = request.form.get('email')
