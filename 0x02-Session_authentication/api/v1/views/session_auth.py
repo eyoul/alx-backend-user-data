@@ -31,4 +31,4 @@ def auth_session():
             session_name = os.getenv('SESSION_NAME')
             resp.set_cookie(session_name, session_id)
             return resp
-    return jsonify({ "error": "wrong password" }), 401
+    return jsonify({"error": "wrong password" }), 401
