@@ -123,17 +123,17 @@ def update_user(user_id: str = None) -> str:
 
 
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
-def get_user(user_id):
+def get_user(user_id: str = None) -> str:
     """
     Retrieves a User object
     """
     if user_id == 'me':
-        if not request.current_user:
+        if request.current_user is None:
             abort(404)
         return jsonify(request.current_user.to_json())
     else:
         user = User.query.get(user_id)
-        if not user:
+        if user is not None:
             abort(404)
         return jsonify(user.to_json())
 
