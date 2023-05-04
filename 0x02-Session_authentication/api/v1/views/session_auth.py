@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """Module of session authenticating views.
 """
-import os
+import os import getenv
 from flask import jsonify, request
 from api.v1.views import app_views
 from models.user import User
 
 
-@app_views.route('/auth_session/login/', methods=['POST'], strict_slashes=False)
+@app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login() -> str:
-    """Create a new session for a user"""
+    """Create a new session for a user
+    """
     email = request.form.get('email')
     password = request.form.get('password')
 
