@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Module of session authenticating views.
+""" Module of Users views
 """
 from os import getenv
 
@@ -10,7 +10,10 @@ from models.user import User
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login() -> str:
-    """Create a new session for a user
+    """ POST /auth_session/login
+    Return:
+      - User object JSON represented
+      - Sets a cookie for the user
     """
     email = request.form.get('email')
     password = request.form.get('password')
