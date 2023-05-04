@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Module of session authenticating views.
 """
-import os import getenv
+from os import getenv
+
 from flask import jsonify, request
 from api.v1.views import app_views
 from models.user import User
