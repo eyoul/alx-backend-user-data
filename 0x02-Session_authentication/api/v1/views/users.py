@@ -130,9 +130,10 @@ def get_user(user_id):
     if user_id == 'me':
         if not request.current_user:
             abort(404)
-        return jsonify(request.current_user.to_dict())
+        return jsonify(request.current_user.to_json())
     else:
         user = User.query.get(user_id)
         if not user:
             abort(404)
-        return jsonify(user.to_dict())
+        return jsonify(user.to_json())
+
