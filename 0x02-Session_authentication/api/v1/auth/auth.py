@@ -46,12 +46,11 @@ class Auth:
         """
         return None
 
-
     def __init__(self):
         """Returns None for now.
         """
         self.session_name = os.environ.get("SESSION_NAME", "_my_session_id")
-  
+
     def session_cookie(self, request=None):
         """Returns None for now.
         """
