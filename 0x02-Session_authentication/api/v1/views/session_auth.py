@@ -2,7 +2,7 @@
 """ Module of Users views
 """
 import os
-from flask import jsonify, request
+from flask import abort, jsonify, request
 from api.v1.views import app_views
 from models.user import User
 
@@ -32,3 +32,12 @@ def auth_session():
             resp.set_cookie(session_name, session_id)
             return resp
     return jsonify({"error": "wrong password"}), 401
+
+
+@app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+def session_logout():
+    """Deletes the user session / logout
+    """
+    if not auth.destroy_session(request):
+        abort(404)
+    return {}
