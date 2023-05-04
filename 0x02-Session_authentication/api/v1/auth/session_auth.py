@@ -1,4 +1,11 @@
-from api.v1.auth.auth import Auth
+#!/usr/bin/env python3
+"""Basic API authentication.
+"""
+from typing import Tuple, TypeVar 
+from .auth import Auth
+
 
 class SessionAuth(Auth):
-    pass
+    """ Return Empity for now
+    """
+    pass 
