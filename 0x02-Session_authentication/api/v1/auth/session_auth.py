@@ -36,7 +36,7 @@ class SessionAuth(Auth):
         session_id = self.session_cookie(request)
         user_id = self.user_id_for_session_id(session_id)
         return User.get(user_id)
-    
+
     def session_cookie(self, request=None) -> str:
         """Returns the value of the session cookie"""
         if not request:
@@ -55,13 +55,3 @@ class SessionAuth(Auth):
             return False
         del self.user_id_by_session_id[session_id]
         return True
-
-
-
-
-
-
-
-
-
-
