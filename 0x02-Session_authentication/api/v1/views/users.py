@@ -136,4 +136,3 @@ def get_user(user_id: str = None) -> str:
         if user is not None:
             abort(404)
         return jsonify(user.to_json())
-
