@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Session authentication module for the API.
 """
+import os
+import uuid
 from uuid import uuid4
 from flask import request
 
