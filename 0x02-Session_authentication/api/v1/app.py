@@ -40,7 +40,6 @@ def before_request() -> str:
             abort(401)
         if user is None:
             abort(403)
-    # Assign result of auth.current_user(request) to request.current_user
 
     request.current_user = user
 
