@@ -5,6 +5,8 @@ session_id = Column(String(250), nullable=True)
 reset_token = Column(String(250), nullable=True)
 
 def __rep__(self):
+    """User model
+    """
     return "<User(email='%s', hashed_password='%s', \
         session_id='%s', reset_token'%s')>" % (
         self.email, self.hashed_password,
