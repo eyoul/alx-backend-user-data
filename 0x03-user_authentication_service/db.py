@@ -43,7 +43,8 @@ class DB:
         """Find the first user that matches the given filter arguments
         """
         try:
-            return self._session.query(User).filter_by(**kwargs).first()
+            user = self._session.query(User).filter_by(**kwargs).one()
+            return user
         except NoResultFound:
             raise
         except InvalidRequestError:
