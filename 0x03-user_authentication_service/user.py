@@ -1,4 +1,6 @@
-from flask import Flask
+#!/usr/bin/env python3
+"""User Model
+"""
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -14,11 +16,3 @@ class User(Base):
     hashed_password = Column(String(250), nullable=False)
     session_id = Column(String(250), nullable=True)
     reset_token = Column(String(250), nullable=True)
-
-    def __rep__(self):
-        """User model
-        """
-        return "<User(email='%s', hashed_password='%s', \
-            session_id='%s', reset_token'%s')>" % (
-            self.email, self.hashed_password,
-            self.session_id, self.reset_token)
