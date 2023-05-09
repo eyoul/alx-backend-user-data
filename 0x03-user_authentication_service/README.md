@@ -43,7 +43,7 @@ pip3 install bcrypt
 
 ### 0. User model
 
-In this task you will create a SQLAlchemy model named User for a database table named users (by using the mapping declaration of SQLAlchemy).
+In this task you will create a SQLAlchemy model named User for a database table named users (by using the [mapping declaration](https://docs.sqlalchemy.org/en/13/orm/tutorial.html#declare-a-mapping) of SQLAlchemy).
 
 The model will have the following attributes:
 
