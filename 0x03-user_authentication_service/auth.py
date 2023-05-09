@@ -27,9 +27,10 @@ class Auth:
         user = self._db.add_user(email, hashed_password)
         return user
 
-    def _hash_password(self, password: str) -> bytes:
-        """Hashes the given password using bcrypt
-        """
-        salt = bcrypt.gensalt()
-        hashed = bcrypt.hashpw(password.encode(), salt)
-        return hashed
+
+def _hash_password(self, password: str) -> bytes:
+    """Hashes the given password using bcrypt
+    """
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password.encode(), salt)
+    return hashed
