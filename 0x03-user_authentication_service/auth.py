@@ -3,9 +3,9 @@
 """
 from db import DB
 from user import User
-import bcrypt
 from sqlalchemy.orm.exc import NoResultFound
 
+import bcrypt
 
 def _hash_password(password: str) -> bytes:
     """Hashes the given password using bcrypt
