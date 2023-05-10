@@ -20,7 +20,7 @@ class Auth:
     """Auth class to interact with the authentication database.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
