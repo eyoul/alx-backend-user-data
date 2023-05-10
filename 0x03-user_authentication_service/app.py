@@ -22,14 +22,13 @@ def users() -> str:
     """
     Register new users
     """
-    email = request.form.get("email")
-    password = request.form.get("password")
     try:
-        user = AUTH.register_user(email, password)
+        email = request.form['email']
+        password = request.form['password']
+        user = AUTH.register_user(email=email, password=password)
+        return jsonify(email=user.email, message='user created'), 200
     except ValueError:
-        return jsonify({"message": "email already registered"}), 400
-
-    return jsonify({"email": f"{email}", "message": "user created"})
+        return jsonify(message='email already registered'), 400
 
 
 if __name__ == "__main__":
