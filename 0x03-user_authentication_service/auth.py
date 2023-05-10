@@ -26,12 +26,9 @@ class Auth:
     def register_user(self, email: str, password: str) -> User:
         """Registers a new user with the given email and password
         """
-        try:
-            self._db.find_user_by(email=email)
+        if self._db.get_user_by_email(email):
             raise ValueError(f"User {email} already exists")
-        except NoResultFound:
-            pass
 
         hashed_password = self._hash_password(password)
-        user = self._db.add_user(email, hashed_password)
+        user = self._db.create_user(email, hashed_password) 
         return user
