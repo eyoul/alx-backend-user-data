@@ -4,12 +4,16 @@
 from flask import Flask, jsonify, request
 from auth import Auth
 
-
 app = Flask(__name__)
 AUTH = Auth()
 
 
-@app.route("/users", methods=["POST"], strict_slashes=False)
+@app.route("/")
+def welcome() -> str:
+    return jsonify({"message": "Bienvenue"})
+
+
+@app.route("/users", methods=["POST"])
 def register_user() -> str:
     """POST /user
     Return: register user email
