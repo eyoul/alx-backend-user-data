@@ -2,6 +2,7 @@
 """return Hash password
 """
 import bcrypt
+
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
@@ -17,18 +18,23 @@ class Auth:
     """Auth class to interact with the authentication database.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
-        """Registers a new user with the given email and password
+        """
+        Register a new user and return a user object
+        Args:
+            email (str): new user's email address
+            password (str): new user's password
+        Return:
+            if no user with given email exists, return newly created user
+            else raise ValueError
         """
         try:
             self._db.find_user_by(email=email)
-            raise ValueError(f"User {email} already exists")
         except NoResultFound:
-            pass
-
-        hashed_password = self._hash_password(password)
-        user = self._db.add_user(email, hashed_password)
-        return user
+            hashed = _hash_password(password)
+            usr = self._db.add_user(email, hashed)
+            return usr
+        raise ValueError(f"User {email} already exists")
