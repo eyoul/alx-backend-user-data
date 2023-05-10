@@ -1,19 +1,9 @@
 #!/usr/bin/env python3
 """return Hash password
 """
-import bcrypt
-
 from db import DB
 from user import User
-from sqlalchemy.orm.exc import NoResultFound
-
-
-def _hash_password(password: str) -> bytes:
-    """Hashes the given password using bcrypt
-    """
-    salt = bcrypt.gensalt()
-    hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
-    return hashed
+import hashlib
 
 
 class Auth:
@@ -23,15 +13,19 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
-    def register_user(self, email: str, password: str) -> User:
-        """Registers a new user with the given email and password
-        """
-        try:
-            self._db.find_user_by(email=email)
-            raise ValueError(f"User {email} already exists")
-        except NoResultFound:
-            pass
+    def _hash_password(self, password):
+        """Hashes a password using SHA-256 algorithm"""
+        return hashlib.sha256(password.encode()).hexdigest()
+
+    def register_user(self, email, password):
+        """Registers a new user with the given email and password"""
+
+        user = self._db.get_user_by_email(email)
+        if user is not None:
+            raise ValueError("User {} already exists".format(email))
 
         hashed_password = self._hash_password(password)
-        user = self._db.add_user(email, hashed_password)
+        user = User(email, hashed_password)
+        self._db.save_user(user)
+
         return user
