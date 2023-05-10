@@ -21,8 +21,8 @@ def index() -> str:
 def users() -> str:
     """
     Register new users
-    email: email 
-    password: password
+    email: users email 
+    password: users password
     """
     email = request.form.get("email")
     password = request.form.get("password")
