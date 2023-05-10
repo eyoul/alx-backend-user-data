@@ -7,9 +7,13 @@ from auth import Auth
 app = Flask(__name__)
 AUTH = Auth()
 
+@app.route("/")
+def welcome():
+    return jsonify({"message": "Bienvenue"})
 
-@app.route("/users", method=["POST"])
-def users():
+
+@app.route("/users", method=["POST"], strict_slashes=False)
+def register_user() -> str:
     email = request.form.get("email")
     password = request.form.get("password")
     try:
@@ -17,11 +21,6 @@ def users():
         return jsonify({"email": email, "message": "user created"})
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
-
-
-@app.route("/")
-def welcome():
-    return jsonify({"message": "Bienvenue"})
 
 
 if __name__ == "__main__":
