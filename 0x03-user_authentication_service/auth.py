@@ -32,4 +32,3 @@ class Auth:
         """Hashes the given password using bcrypt
         """
         return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt)
-    
