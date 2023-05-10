@@ -9,9 +9,9 @@ AUTH = Auth()
 
 
 @app.route("/", methods=["GET"], strict_slashes=False)
-def Index() -> str:
+def index() -> str:
     """
-    Return json of
+    Return json response
     {"message": "Bienvenue"}
     """
     return jsonify({"message": "Bienvenue"})
