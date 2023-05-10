@@ -8,7 +8,7 @@ from sqlalchemy.orm.exc import NoResultFound
 import bcrypt
 
 
-def _hash_password(password: str) -> str:
+def _hash_password(password: str) -> bcrypt:
     """Hashes the given password using bcrypt
     """
     salt = bcrypt.gensalt()
