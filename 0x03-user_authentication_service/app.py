@@ -20,9 +20,11 @@ def index() -> str:
 @app.route("/users", methods=["POST"])
 def users() -> str:
     """
-    Register new users
-    email: users email 
-    password: users password
+    Args:
+        email (str): new user's email address
+        password (str): new user's password
+    Return:
+        Register new users
     """
     email = request.form.get("email")
     password = request.form.get("password")
