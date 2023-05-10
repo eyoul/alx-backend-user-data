@@ -8,7 +8,7 @@ app = Flask(__name__)
 AUTH = Auth()
 
 
-@app.route("/", methods=["GET"], strict_slashes=False)
+@app.route("/", methods=["GET"])
 def index() -> str:
     """
     Return json response
@@ -17,18 +17,19 @@ def index() -> str:
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route("/users", methods=["POST"], strict_slashes=False)
+@app.route("/users", methods=["POST"])
 def users() -> str:
     """
     Register new users
     """
+    email = request.form.get("email")
+    password = request.form.get("password")
     try:
-        email = request.form['email']
-        password = request.form['password']
-        user = AUTH.register_user(email=email, password=password)
-        return jsonify(email=user.email, message='user created'), 200
+        user = AUTH.register_user(email, password)
     except ValueError:
-        return jsonify(message='email already registered'), 400
+        return jsonify({"message": "email already registered"}), 400
+
+    return jsonify({"email": f"{email}", "message": "user created"})
 
 
 if __name__ == "__main__":
