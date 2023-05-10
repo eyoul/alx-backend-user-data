@@ -10,8 +10,8 @@ AUTH = Auth()
 
 @app.route("/users", method=["POST"])
 def users():
-    email = request.from.get("email")
-    password = request.from.get("password")
+    email = request.form.get("email")
+    password = request.form.get("password")
     try:
         AUTH.register_user(email, password)
         return jsonify({"email": email, "message": "user created"})
