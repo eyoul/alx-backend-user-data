@@ -13,7 +13,7 @@ def welcome():
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route("/users", method=["POST"], strict_slashes=False)
+@app.route("/users", methods=["POST"], strict_slashes=False)
 def register_user() -> str:
     email = request.form.get("email")
     password = request.form.get("password")
