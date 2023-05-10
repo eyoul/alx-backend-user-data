@@ -8,12 +8,10 @@ from sqlalchemy.orm.exc import NoResultFound
 import bcrypt
 
 
-def _hash_password(password: str) -> bcrypt:
+def _hash_password(password: str) -> str:
     """Hashes the given password using bcrypt
     """
-    salt = bcrypt.gensalt()
-    hashed = bcrypt.hashpw(password.encode(), salt)
-    return hashed
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
 
 class Auth:
@@ -28,10 +26,8 @@ class Auth:
         """
         try:
             self._db.find_user_by(email=email)
-            raise ValueError(f"User {email} already exists")
+            raise ValueError(f"User {} already exists".format(email))
         except NoResultFound:
-            pass
-
-        hashed_password = self._hash_password(password)
-        user = self._db.add_user(email, hashed_password)
-        return user
+            hashed_password = self._hash_password(password)
+            user = self._db.add_user(email, hashed_password)
+            return user
