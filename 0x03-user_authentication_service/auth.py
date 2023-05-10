@@ -3,31 +3,33 @@
 """
 from db import DB
 from user import User
-from hashlib import sha256
+from sqlalchemy.orm.exc import NoResultFound
+
+import bcrypt
 
 
 class Auth:
-    """Auth class to interact with the authentication database."""
+    """Auth class to interact with the authentication database.
+    """
 
     def __init__(self):
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
-        # Check if user already exists
-        if self._db.get_user_by_email(email):
+        """Registers a new user with the given email and password
+        """
+        try:
+            self._db.find_user_by(email=email)
             raise ValueError(f"User {email} already exists")
+        except NoResultFound:
+            pass
 
-        # Hash password
         hashed_password = self._hash_password(password)
-
-        # Create user object
-        user = User(email, hashed_password)
-
-        # Save user to database
-        self._db.save_user(user)
-
+        user = self._db.add_user(email, hashed_password)
         return user
 
-    def _hash_password(self, password: str) -> str:
-        """Hashes password using sha256."""
-        return sha256(password.encode()).hexdigest()
+    def _hash_password(password: str) -> bytes:
+        """Hashes the given password using bcrypt
+        """
+        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt)
+    
