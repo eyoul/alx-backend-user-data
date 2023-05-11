@@ -2,7 +2,12 @@
 """ Basic Flask app
 """
 from auth import Auth
-from flask import Flask, request, abort, jsonify, make_response
+from flask import (
+    Flask,
+    request,
+    abort,
+    jsonify
+)
 
 
 app = Flask(__name__)
@@ -37,22 +42,22 @@ def users() -> str:
 
 
 @app.route('/sessions', methods=['POST'])
-def login():
+def login() -> str:
     """
     Args:
         email (str): new user's email address
         password (str): new user's password
     Return:
-        LogIn nusers
+        LogIn users
     """
     email = request.form.get('email')
     password = request.form.get('password')
-    if not email or not password:
-        abort(400)
-    if not AUTH.is_valid_password(email, password):
+
+    if not AUTH.valid_login(email, password):
         abort(401)
+
     session_id = AUTH.create_session(email)
-    response = make_response(jsonify({'email': email, 'message': 'logged in'}))
+    response = jsonify({'email': f'{email}', 'message': 'logged in'})
     response.set_cookie('session_id', session_id)
     return response
 
