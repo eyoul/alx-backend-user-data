@@ -38,17 +38,14 @@ class Auth:
         Args:
             email (str): new user's email address
             password (str): new user's password
-        Return:
-            if no user with given email exists, return newly created user
-            else raise ValueError
         """
         try:
             self._db.find_user_by(email=email)
+            raise ValueError(f"User {email} already exists")
         except NoResultFound:
             hashed = _hash_password(password)
             usr = self._db.add_user(email, hashed)
             return usr
-        raise ValueError(f"User {email} already exists")
 
     def valid_login(self, email: str, password: str) -> bool:
         """
