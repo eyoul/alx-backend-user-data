@@ -61,3 +61,13 @@ class DB:
             else:
                 raise ValueError()
         self._session.commit()
+
+    def get_user_from_session_id(self, session_id):
+        """
+        Find user by session ID
+            Return: the corresponding User or None
+        """
+        if session_id is None:
+            return None
+        user = self._db.query(User).filter_by(session_id=session_id).first()
+        return user
