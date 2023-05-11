@@ -72,13 +72,11 @@ class Auth:
         Corresponding to the email, generate a
         new UUID and store it in the database
         """
-        user = None
         try:
             user = self._db.find_user_by(email=email)
         except NoResultFound:
             return None
-        if user is None:
-            return None
+
         session_id = _generate_uuid()
         self._db.update_user(user.id, session_id=session_id)
         return session_id
@@ -89,11 +87,7 @@ class Auth:
         If the session ID is None or no user is found,
         return None. Otherwise return the corresponding user.
         """
-        user = None
         if session_id is None:
             return None
-        try:
-            user = self._db.find_user_by(session_id=session_id)
-        except NoResultFound:
-            return None
+        user = self._db.query(User).filter_by(session_id=session_id).first()
         return user
