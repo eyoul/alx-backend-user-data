@@ -38,12 +38,17 @@ class Auth:
         Args:
             email (str): new user's email address
             password (str): new user's password
+        Return:
+            if no user with given email exists, return newly created user
+            else raise ValueError
         """
         try:
             self._db.find_user_by(email=email)
-            raise ValueError(f"User {email} already exists")
         except NoResultFound:
-            return self._db.add_user(email, _hash_password(password))
+            hashed = _hash_password(password)
+            usr = self._db.add_user(email, hashed)
+            return usr
+        raise ValueError(f"User {email} already exists")
 
     def valid_login(self, email: str, password: str) -> bool:
         """
@@ -54,10 +59,12 @@ class Auth:
         """
         try:
             user = self._db.find_user_by(email=email)
-            return bcrypt.checkpw(password.encode('utf-8'),
-                                  user.hashed_password)
-        except Exception:
+        except NoResultFound:
             return False
+
+        user_password = user.hashed_password
+        passwd = password.encode("utf-8")
+        return bcrypt.checkpw(passwd, user_password)
 
     def create_session(self, email: str) -> Union[None, str]:
         """
@@ -67,21 +74,9 @@ class Auth:
         """
         try:
             user = self._db.find_user_by(email=email)
-            session_id = _generate_uuid()
-            self._db.update_user(user.id, session_id=session_id)
-            return session_id
-        except Exception:
+        except NoResultFound:
             return None
 
-    def get_user_from_session_id(self, session_id):
-        """
-        Return: the corresponding User or None
-        If the session ID is None or no user is found,
-        return None. Otherwise return the corresponding user.
-        """
-        try:
-            if session_id is None:
-                return None
-            return self._db.find_user_by(session_id=session_id)
-        except Exception:
-            return None
+        session_id = _generate_uuid()
+        self._db.update_user(user.id, session_id=session_id)
+        return session_id
