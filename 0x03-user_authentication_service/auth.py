@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """return Hash password
 """
-import bcrypt
+from uuid import uuid4
 
+import bcrypt
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
