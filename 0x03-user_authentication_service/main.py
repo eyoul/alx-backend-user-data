@@ -16,6 +16,7 @@ def register_user(email: str, password: str) -> None:
         json={'email': email, 'password': password})
     assert response.status_code == 201
 
+
 def log_in_wrong_password(email: str, password: str) -> None:
     """Login wrong password Test
     """
@@ -23,6 +24,7 @@ def log_in_wrong_password(email: str, password: str) -> None:
         f'{BASE_URL}/sessions',
         json={'email': email, 'password': password})
     assert response.status_code == 401
+
 
 def log_in(email: str, password: str) -> str:
     """Login Test
@@ -35,11 +37,13 @@ def log_in(email: str, password: str) -> str:
     assert 'session_id' in data
     return data['session_id']
 
+
 def profile_unlogged() -> None:
     """Profile get Test
     """
     response = requests.get(f'{BASE_URL}/profile')
     assert response.status_code == 403
+
 
 def profile_logged(session_id: str) -> None:
     """Profile Logged test
@@ -50,6 +54,7 @@ def profile_logged(session_id: str) -> None:
     data = response.json()
     assert 'email' in data
 
+
 def log_out(session_id: str) -> None:
     """Logout Test
     """
@@ -57,6 +62,7 @@ def log_out(session_id: str) -> None:
     response = requests.delete(
         f'{BASE_URL}/sessions', headers=headers)
     assert response.status_code == 204
+
 
 def reset_password_token(email: str) -> str:
     """reset password Token test
@@ -67,6 +73,7 @@ def reset_password_token(email: str) -> str:
     data = response.json()
     assert 'email' in data and 'reset_token' in data
     return data['reset_token']
+
 
 def update_password(
         email: str,
