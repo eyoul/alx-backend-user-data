@@ -8,7 +8,7 @@ app = Flask(__name__)
 AUTH = Auth()
 
 
-@app.route("/", methods=["GET"], strict_slashes=False)
+@app.route("/", methods=["GET"])
 def index() -> str:
     """
     Return json response
@@ -17,7 +17,7 @@ def index() -> str:
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route("/users", methods=["POST"], strict_slashes=False)
+@app.route("/users", methods=["POST"])
 def users() -> str:
     """
     Args:
