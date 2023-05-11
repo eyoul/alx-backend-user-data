@@ -73,7 +73,7 @@ class Auth:
         new UUID and store it in the database
         """
         try:
-            user = self._db.find_user_by('email', email)
+            user = self._db.find_user_by(email=email)
         except NoResultFound:
             return None
 
