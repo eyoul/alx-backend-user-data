@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """ Basic Flask app
 """
-from flask import Flask, jsonify, request
 from auth import Auth
+from flask import Flask, jsonify, request
+
 
 app = Flask(__name__)
 AUTH = Auth()
