@@ -68,10 +68,9 @@ class Auth:
 
     def create_session(self, email: str) -> Union[None, str]:
         """
-        Create a session_id for an existing user and update the user's
-        session_id attribute
-        Args:
-            email (str): user's email address
+        Return: the session ID.
+        Corresponding to the email, generate a
+        new UUID and store it in the database
         """
         try:
             user = self._db.find_user_by(email=email)
