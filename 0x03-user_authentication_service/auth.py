@@ -64,3 +64,13 @@ class Auth:
         user_password = user.hashed_password
         passwd = password.encode("utf-8")
         return bcrypt.checkpw(passwd, user_password)
+
+    def create_session(self, email):
+        """
+        Return: the session ID.
+        """
+        user = self._db.find_user_by('email', email)
+        if user:
+            session_id = str(uuid.uuid4())
+            self._db.update_user(user.id, session_id=session_id)
+            return session_id
