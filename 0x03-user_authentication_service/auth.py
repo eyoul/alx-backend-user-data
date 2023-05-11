@@ -80,3 +80,14 @@ class Auth:
         session_id = _generate_uuid()
         self._db.update_user(user.id, session_id=session_id)
         return session_id
+   
+    def get_user_from_session_id(self, session_id):
+        """
+        Return: the corresponding User or None
+        If the session ID is None or no user is found,
+        return None. Otherwise return the corresponding user.
+        """
+        if session_id is None:
+            return None
+        user = self._db.query(User).filter_by(session_id=session_id).first()
+        return user
